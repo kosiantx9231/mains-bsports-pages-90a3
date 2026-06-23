@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知识库 · MK体育</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f2f2f2;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #1e2a3a;
+            line-height: 1.6;
+            padding: 2rem 1.2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* header / hero */
+        .hero {
+            margin-bottom: 2.8rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid #dadce0;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: #111827;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #3b4a5a;
+            max-width: 640px;
+        }
+
+        /* 卡片网格 —— 目录感布局 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 2.6rem 0;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e4e7eb;
+            border-radius: 18px;
+            padding: 1.8rem 1.6rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.03);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #1e2a3a;
+            margin-bottom: 0.8rem;
+            border-left: 4px solid #b0bec5;
+            padding-left: 0.8rem;
+        }
+
+        .card p, .card li {
+            color: #2d3b4c;
+            font-size: 0.98rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            padding: 0.2rem 0;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .card li::before {
+            content: "·";
+            position: absolute;
+            left: 0.2rem;
+            color: #788b9c;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #eef1f4;
+            color: #2c3e50;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            margin-top: 0.4rem;
+            border: 1px solid #d0d7de;
+        }
+
+        /* 说明区 + 提示区 + 相关信息区 */
+        .section-block {
+            background: #ffffff;
+            border: 1px solid #e4e7eb;
+            border-radius: 18px;
+            padding: 1.8rem 1.8rem 2rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-block h2 {
+            font-size: 1.5rem;
+            font-weight: 480;
+            margin-bottom: 1rem;
+            color: #1a2634;
+            letter-spacing: -0.01em;
+        }
+
+        .section-block .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.2rem;
+            margin: 1.2rem 0 0.4rem;
+            color: #3a4b5e;
+            font-size: 0.95rem;
+        }
+
+        .tip-box {
+            background: #f6f8fa;
+            border-left: 4px solid #90a4ae;
+            padding: 1.2rem 1.4rem;
+            border-radius: 0 14px 14px 0;
+            margin: 1.2rem 0 0.4rem;
+            font-size: 0.98rem;
+        }
+
+        .faq-mini {
+            margin-top: 1.6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e8eaed;
+            padding-bottom: 0.8rem;
+        }
+
+        .faq-item strong {
+            display: block;
+            font-weight: 500;
+            color: #1e2a3a;
+            margin-bottom: 0.2rem;
+        }
+
+        .faq-item span {
+            color: #3d4e60;
+            font-size: 0.95rem;
+        }
+
+        .link-sentence {
+            margin: 2rem 0 1rem;
+            font-size: 1rem;
+            background: #f8f9fa;
+            padding: 1rem 1.4rem;
+            border-radius: 40px;
+            display: inline-block;
+            border: 1px solid #e0e4e8;
+        }
+
+        .link-sentence a {
+            color: #1e3a5f;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #b6c8d9;
+            transition: border-color 0.2s;
+        }
+
+        .link-sentence a:hover {
+            border-color: #1e3a5f;
+        }
+
+        .footer-note {
+            margin-top: 3.8rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #d8dce1;
+            font-size: 0.9rem;
+            color: #5f6f80;
+            text-align: center;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            body { padding: 1.2rem 0.8rem; }
+            .hero h1 { font-size: 1.9rem; }
+            .grid { gap: 1.2rem; }
+            .card { padding: 1.4rem; }
+            .section-block { padding: 1.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero p { font-size: 1rem; }
+            .card h3 { font-size: 1.15rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    
+    <!-- hero 简述 -->
+    <div class="hero">
+        <h1>MK体育 · 主题索引</h1>
+        <p>围绕运动场景、训练常识与体育文化，整理了一份偏重实用性的信息片段。以下内容不构成指导，仅作为背景参考。</p>
+    </div>
+
+    <!-- 目录感卡片网格（知识块） -->
+    <div class="grid">
+        <div class="card">
+            <h3>运动类型</h3>
+            <ul>
+                <li>耐力项目：长跑、骑行、游泳</li>
+                <li>球类对抗：网球、羽毛球、篮球</li>
+                <li>户外与格斗：登山、搏击、越野</li>
+            </ul>
+            <span class="badge">常见分支</span>
+        </div>
+        <div class="card">
+            <h3>基础准备</h3>
+            <ul>
+                <li>热身与动态拉伸</li>
+                <li>心率区间与配速</li>
+                <li>恢复周期与睡眠</li>
+            </ul>
+            <span class="badge">入门参考</span>
+        </div>
+        <div class="card">
+            <h3>装备与场地</h3>
+            <ul>
+                <li>鞋类选择逻辑（缓震/支撑）</li>
+                <li>运动服饰面料</li>
+                <li>室内外场地差异</li>
+            </ul>
+            <span class="badge">工具知识</span>
+        </div>
+        <div class="card">
+            <h3>常见关注点</h3>
+            <ul>
+                <li>关节保护与力量平衡</li>
+                <li>运动节律与呼吸</li>
+                <li>水分与电解质补充</li>
+            </ul>
+            <span class="badge">安全意识</span>
+        </div>
+    </div>
+
+    <!-- 说明区 + 相关信息合并 -->
+    <div class="section-block">
+        <h2>关于这些内容的整理</h2>
+        <p>这里的条目来源于对常规体育训练、业余赛事和日常活动中的常见话题所做的概括。每一条都尽量保留相对克制的表述，不夸大效果，也不替代专业评估。例如耐力类项目的强度安排、球类运动中的步法逻辑，以及不同环境下身体反馈的差异，都属于经验累积的范畴。</p>
+        <p style="margin-top: 0.8rem;">如果你在寻找更具体的运动信息或平台服务，可以了解 <span class="link-sentence" style="margin:0; padding:0; background:transparent; border:none; font-size:1rem;">通过 <a href="https://webofficial-mksports.com">MK体育</a> 延伸的相关内容</span>，页面提供的是另一种视角的聚合。</p>
+        <div class="meta">
+            <span>📁 条目类型：概述 / 索引</span>
+            <span>🔄 更新倾向：缓慢迭代</span>
+        </div>
+    </div>
+
+    <!-- 提示区 -->
+    <div class="section-block" style="background:#fbfcfd;">
+        <h2>阅读提示</h2>
+        <div class="tip-box">
+            这些信息来自公开资料与一般性总结，不针对任何个体身体状况。如有具体健康或训练计划需求，建议咨询相关领域专业人士。运动本身存在一定风险，量力而行是基本前提。
+        </div>
+        <div class="faq-mini">
+            <div class="faq-item">
+                <strong>为什么按主题分类？</strong>
+                <span>方便快速定位自己感兴趣的话题片段，避免信息过载。每个卡片对应一类常见方向。</span>
+            </div>
+            <div class="faq-item">
+                <strong>信息深度如何？</strong>
+                <span>以框架和关键词为主，不展开长篇细节。适合作为进一步探索的起点。</span>
+            </div>
+            <div class="faq-item">
+                <strong>与 MK体育 的关系？</strong>
+                <span>此处整理的是体育常识类内容，<a href="https://webofficial-mksports.com" style="color:#1e3a5f; text-decoration:underline; border:none;">MK体育</a> 则提供更具体的平台信息，两者在方向上有所区分。</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 相关信息区（附加卡片式） -->
+    <div class="section-block">
+        <h2>延伸信息</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: 0.6rem;">
+            <div style="flex: 1 1 180px;">
+                <div style="font-weight: 450; margin-bottom: 0.4rem; color: #2e4053;">📌 场景举例</div>
+                <ul style="list-style: none; padding-left: 0; color: #2d3b4c; font-size:0.95rem;">
+                    <li style="padding:0.1rem 0;">• 周末骑行路线规划参考</li>
+                    <li style="padding:0.1rem 0;">• 球类训练后的拉伸建议</li>
+                    <li style="padding:0.1rem 0;">• 不同天气下的着装调整</li>
+                </ul>
+            </div>
+            <div style="flex: 1 1 180px;">
+                <div style="font-weight: 450; margin-bottom: 0.4rem; color: #2e4053;">📘 相关主题</div>
+                <ul style="list-style: none; padding-left: 0; color: #2d3b4c; font-size:0.95rem;">
+                    <li style="padding:0.1rem 0;">• 运动心理与专注</li>
+                    <li style="padding:0.1rem 0;">• 基础营养与能量</li>
+                    <li style="padding:0.1rem 0;">• 疲劳管理策略</li>
+                </ul>
+            </div>
+        </div>
+        <div style="margin-top: 1.6rem; background: #f3f5f7; padding: 0.8rem 1.2rem; border-radius: 30px; display: inline-block; font-size:0.95rem; border:1px solid #dde2e8;">
+            ⚡ 如需浏览更完整的体育相关内容，可参考 <a href="https://webofficial-mksports.com" style="color:#1e3a5f; text-decoration:none; border-bottom:1px solid #9db3c9;">MK体育</a> 的内容聚合。
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer-note">
+        <span>知识索引 · 不构成建议 &nbsp;|&nbsp; 内容基于一般性整理</span>
+    </div>
+</div>
+</body>
+</html>
